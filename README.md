@@ -24,7 +24,7 @@ Contact: [Telegram](https://t.me/xadarsh_x)
 - Able to download Youtube videos + 30 more sites supported via `/dl` command 
 
 ### Try Live Bot
-Bot link - [CLICK HERE](https://t.me/advance_content_saver_bot)
+Bot link - [CLICK HERE](https://t.me/PrivateContentDownloader_Bot)
 ---
 A stable telegram bot to get restricted messages from group/channel/bot with custom thumbnail support , made by [ADARSH](https://t.me/xadarsh_x) This bot can run in channels directly.
 
