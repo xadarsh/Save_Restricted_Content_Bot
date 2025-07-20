@@ -1,21 +1,31 @@
 FROM python:3.10.4-slim-buster
-# Update the package lists and upgrade the existing packages
-RUN apt update && apt upgrade -y
-# Install necessary packages
-RUN apt-get install git curl python3-pip ffmpeg -y
-RUN apt-get -y install git  # Redundant, can be removed
-RUN apt-get install -y wget python3-pip curl bash neofetch ffmpeg software-properties-common
-# Copy the requirements file into the image
 
+# ⚠️ Fix deprecated Buster repositories and update packages
+RUN sed -i 's|http://deb.debian.org|http://archive.debian.org|g' /etc/apt/sources.list && \
+    sed -i '/security.debian.org/s/^/#/' /etc/apt/sources.list && \
+    apt-get update && apt-get upgrade -y
+
+# ✅ Install necessary packages (deduplicated and grouped)
+RUN apt-get install -y \
+    git \
+    curl \
+    wget \
+    python3-pip \
+    bash \
+    neofetch \
+    ffmpeg \
+    software-properties-common
+
+# 📦 Copy the requirements file and install Python dependencies
 COPY requirements.txt .
-# Install Python packages specified in requirements.txt
 RUN pip3 install wheel
 RUN pip3 install --no-cache-dir -U -r requirements.txt
-# Set the working directory inside the container
+
+# 📁 Set working directory
 WORKDIR /app
 
-# Copy the entire application code into the image
+# 🗂 Copy entire application code into container
 COPY . .
-# change port -p to 10000 if not works
-# A dummy command to keep the container running
+
+# 🚀 Start the app
 CMD flask run -h 0.0.0.0 -p 8000 & python3 -m aadi
